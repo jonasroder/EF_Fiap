@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Entity\5xgwrf2w.cux~" />
+  </ItemGroup>
+
 </Project>
