@@ -1,0 +1,6 @@
+@EF_Fiap_HostAddress = http://localhost:5034
+
+GET {{EF_Fiap_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
