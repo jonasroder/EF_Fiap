@@ -31,7 +31,6 @@ namespace Infrastructure.Repository
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // teste adicionando uma a uma manualmente:
             /* modelBuilder.ApplyConfiguration(new Infrastructure.Configuration.ClienteConfiguration());
              modelBuilder.ApplyConfiguration(new Infrastructure.Configuration.LivroConfiguration());
              modelBuilder.ApplyConfiguration(new Infrastructure.Configuration.PedidoConfiguration());*/

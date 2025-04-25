@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json")
+    .AddJsonFile("appsettings.Development.json")
     .Build();
 
 builder.Services.AddControllers();
