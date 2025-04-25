@@ -1,4 +1,5 @@
 ﻿using Core.Entity;
+using Core.Input;
 using Core.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,23 +11,30 @@ namespace Infrastructure.Repository
         {
         }
 
-        public Cliente ObterPedidosSeisMeses(int id)
+        public ClienteComPedidosDTO ObterPedidosSeisMeses(int id)
         {
             var cliente = _context.Cliente
-                .Include(c => c.Pedidos)
-                    .ThenInclude(p => p.Livro)
-                .FirstOrDefault(c => c.Id == id)
-                ?? throw new Exception("Esse cliente não existe");
-
-            cliente.Pedidos = cliente.Pedidos
-                .Where(c => c.DataCriacao >= DateTime.Now.AddMonths(-6))
-                .Select(p =>
+                .Where(c => c.Id == id)
+                .Select(c => new ClienteComPedidosDTO
                 {
-                    p.Cliente = null;
-                    p.Livro.Pedidos = null;
-                    return p;
+                    Id = c.Id,
+                    Nome = c.Nome,
+                    Pedidos = c.Pedidos
+                        .Where(p => p.DataCriacao >= DateTime.Now.AddMonths(-6))
+                        .Select(p => new PedidoDTO
+                        {
+                            Id = p.Id,
+                            DataCriacao = p.DataCriacao,
+                            Livro = new LivroDTO
+                            {
+                                Id = p.Livro.Id,
+                                Nome = p.Livro.Nome,
+                                Editora = p.Livro.Editora
+                            }
+                        })
+                        .ToList()
                 })
-                .ToList();
+                .FirstOrDefault() ?? throw new Exception("Esse cliente não existe");
 
             return cliente;
         }

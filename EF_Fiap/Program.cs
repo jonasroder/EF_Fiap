@@ -10,12 +10,14 @@ var configuration = new ConfigurationBuilder()
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();;
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")),
+   //        .UseLazyLoadingProxies(),
     ServiceLifetime.Scoped
 );
+
 
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
